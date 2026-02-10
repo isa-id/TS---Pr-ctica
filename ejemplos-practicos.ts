@@ -2,38 +2,41 @@
 // Este archivo contiene ejemplos que puedes copiar y ejecutar
 
 // ============================================
+// IMPORTAR TIPOS DESDE tipos.ts
+// ============================================
+import {
+  Usuario,
+  EstadoUsuario,
+  Producto,
+  Resultado,
+  RespuestaAPI,
+  ActualizarProducto,
+  ProductoBasico,
+  ProductoSinID,
+  PermisosPorRol,
+  Validador,
+  ConfiguracionApp,
+} from "./tipos";
+
+// ============================================
 // NIVEL 1: INTERFACES Y ENUMS
 // ============================================
 
 // Ejemplo 1: Interfaz básica
-interface Usuario {
-  id: number;
-  nombre: string;
-  email: string;
-  activo?: boolean;
-}
-
 const usuario: Usuario = {
   id: 1,
-  nombre: "Juan",
+  username: "Juan",
   email: "juan@example.com",
-  activo: true
+  activo: true,
 };
 
 // Ejemplo 2: Enum
-enum EstadoUsuario {
-  Activo = "ACTIVO",
-  Inactivo = "INACTIVO",
-  Suspendido = "SUSPENDIDO"
-}
-
 interface UsuarioConEstado extends Usuario {
-  estado: EstadoUsuario;
+  readonly id: number;
+  readonly estado: EstadoUsuario;
 }
 
 // Ejemplo 3: Union types
-type Resultado = string | number | boolean;
-
 function procesar(valor: Resultado): void {
   if (typeof valor === "string") {
     console.log(valor.toUpperCase());
@@ -101,22 +104,15 @@ function procesar2(valor: string | number): void {
 // NIVEL 3: TIPOS AVANZADOS
 // ============================================
 
-// Ejemplo 7: Utility types
-interface Producto {
-  id: number;
-  nombre: string;
-  precio: number;
-  descripcion?: string;
-}
-
+// Ejemplo 7: Utility types (ya importados de tipos.ts)
 // Partial: todas las propiedades opcionales
-type ActualizarProducto = Partial<Producto>;
+type PartialProducto = ActualizarProducto;
 
 // Pick: seleccionar propiedades específicas
-type ProductoBasico = Pick<Producto, "nombre" | "precio">;
+type BasicoProducto = ProductoBasico;
 
 // Omit: excluir propiedades específicas
-type ProductoSinID = Omit<Producto, "id">;
+type SinIDProducto = ProductoSinID;
 
 // Ejemplo 8: Mapped types
 type Getters<T> = {
@@ -133,8 +129,8 @@ type UsuarioGetters = Getters<Usuario>;
 // Ejemplo 9: Conditional types
 type Flatten<T> = T extends Array<infer U> ? U : T;
 
-type A = Flatten<number[]>;     // number
-type B = Flatten<string>;       // string
+type A = Flatten<number[]>; // number
+type B = Flatten<string>; // string
 
 // Ejemplo 10: Template literal types
 type Evento = "click" | "hover" | "focus";
@@ -172,7 +168,7 @@ class ConstructorAPI {
   } = {
     baseUrl: "",
     timeout: 5000,
-    headers: {}
+    headers: {},
   };
 
   baseUrl(url: string): this {
@@ -205,21 +201,7 @@ const api = new ConstructorAPI()
 // CASOS DE USO REALES
 // ============================================
 
-// Ejemplo 13: API con tipo seguro
-interface RespuestaExito<T> {
-  tipo: "exito";
-  datos: T;
-  codigo: 200;
-}
-
-interface RespuestaError {
-  tipo: "error";
-  codigo: number;
-  mensaje: string;
-}
-
-type RespuestaAPI<T> = RespuestaExito<T> | RespuestaError;
-
+// Ejemplo 13: API con tipo seguro (usando tipos importados)
 function procesarRespuesta<T>(respuesta: RespuestaAPI<T>): void {
   if (respuesta.tipo === "exito") {
     console.log("Éxito:", respuesta.datos);
@@ -228,33 +210,18 @@ function procesarRespuesta<T>(respuesta: RespuestaAPI<T>): void {
   }
 }
 
-// Ejemplo 14: Sistema de permisos
-type Permiso = "leer" | "escribir" | "eliminar";
-type Rol = "admin" | "editor" | "viewer";
-
-type PermisosPorRol = Record<Rol, Permiso[]>;
-
+// Ejemplo 14: Sistema de permisos (usando tipos importados)
 const permisos: PermisosPorRol = {
   admin: ["leer", "escribir", "eliminar"],
   editor: ["leer", "escribir"],
-  viewer: ["leer"]
+  viewer: ["leer"],
 };
 
-// Ejemplo 15: Validador genérico
-type Validador<T> = {
-  [K in keyof T]: (valor: T[K]) => boolean;
-};
-
-interface ConfiguracionApp {
-  puerto: number;
-  ambiente: string;
-  debug: boolean;
-}
-
+// Ejemplo 15: Validador genérico (usando tipos importados)
 const validadores: Validador<ConfiguracionApp> = {
   puerto: (valor) => valor > 0 && valor < 65535,
   ambiente: (valor) => ["dev", "prod"].includes(valor),
-  debug: (valor) => typeof valor === "boolean"
+  debug: (valor) => typeof valor === "boolean",
 };
 
 console.log("Ejemplos cargados correctamente!");
