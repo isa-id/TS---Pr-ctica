@@ -16,7 +16,7 @@ interface Usuario {
 const usuario: Usuario = {
   nombre: "Juan",
   edad: 25,
-  email: "juan@example.com"
+  email: "juan@example.com",
 };
 ```
 
@@ -28,19 +28,19 @@ Usa `?` para hacer una propiedad opcional:
 interface Producto {
   nombre: string;
   precio: number;
-  descripcion?: string;  // Opcional
+  descripcion?: string; // Opcional
 }
 
 const producto1: Producto = {
   nombre: "Laptop",
-  precio: 1500
+  precio: 1500,
   // descripcion no es obligatoria
 };
 
 const producto2: Producto = {
   nombre: "Mouse",
   precio: 25,
-  descripcion: "Mouse inalámbrico"
+  descripcion: "Mouse inalámbrico",
 };
 ```
 
@@ -52,17 +52,17 @@ Usa `readonly` para propiedades que no pueden cambiar:
 interface Configuracion {
   readonly version: string;
   readonly apiUrl: string;
-  theme: string;  // Esta sí puede cambiar
+  theme: string; // Esta sí puede cambiar
 }
 
 const config: Configuracion = {
   version: "1.0.0",
   apiUrl: "https://api.example.com",
-  theme: "dark"
+  theme: "dark",
 };
 
-config.theme = "light";  // ✓ Permitido
-// config.version = "2.0.0";  // ✗ Error: No puedes cambiar propiedades readonly
+config.theme = "light"; // ✓ Permitido
+config.version = "2.0.0"; // ✗ Error: No puedes cambiar propiedades readonly
 ```
 
 ## Métodos en Interfaces
@@ -85,11 +85,11 @@ const miAuto: Vehiculo = {
   },
   frenar(intensidad: number) {
     return `Frenando con intensidad ${intensidad}`;
-  }
+  },
 };
 
-miAuto.acelerar();  // ¡Acelerando!
-console.log(miAuto.frenar(80));  // Frenando con intensidad 80
+miAuto.acelerar(); // ¡Acelerando!
+console.log(miAuto.frenar(80)); // Frenando con intensidad 80
 ```
 
 ## Herencia de Interfaces
@@ -113,7 +113,7 @@ const miPerro: Perro = {
   raza: "Golden Retriever",
   traerObjeto() {
     console.log("Trayendo la pelota...");
-  }
+  },
 };
 ```
 
@@ -141,7 +141,7 @@ const pajaro: Pajaro = {
   },
   nadar() {
     console.log("Nadando en el agua");
-  }
+  },
 };
 ```
 
@@ -161,7 +161,7 @@ interface Persona {
 // Ahora Persona tiene nombre Y edad
 const persona: Persona = {
   nombre: "Carlos",
-  edad: 30
+  edad: 30,
 };
 ```
 
@@ -170,21 +170,27 @@ const persona: Persona = {
 ## 💡 Ejercicios Prácticos
 
 ### Ejercicio 1: Crear una interfaz de Usuario
+
 Crea una interfaz `Usuario` con:
+
 - `id` (número, readonly)
 - `username` (string)
 - `email` (string)
 - `activo` (booleano, opcional)
 
 ### Ejercicio 2: Agregar métodos
+
 Crea una interfaz `CuentaBancaria` con:
+
 - `saldo` (número)
 - `titular` (string)
 - `depositar(cantidad: number): void`
 - `retirar(cantidad: number): boolean`
 
 ### Ejercicio 3: Herencia
+
 Extiende la interfaz anterior creando una interfaz `CuentaPremium` que agregue:
+
 - `limiteCredito` (número)
 - `solicitarPrestamo(cantidad: number): boolean`
 
@@ -197,7 +203,7 @@ Extiende la interfaz anterior creando una interfaz `CuentaPremium` que agregue:
 ✓ Usa `readonly` para propiedades inmutables  
 ✓ Las interfaces pueden tener métodos  
 ✓ Soportan herencia simple y múltiple  
-✓ Se pueden fusionar si tienen el mismo nombre  
+✓ Se pueden fusionar si tienen el mismo nombre
 
 ---
 

@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch TypeScript Program",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/dist/ejemplos-practicos.js",
+      "restart": true,
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
